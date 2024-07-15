@@ -13,10 +13,28 @@ export const postRequest = async (url, body) => {
     let errorMessage;
 
     if (data?.message) {
-        errorMessage = data.message;
+      errorMessage = data.message;
     } else {
-        errorMessage = data;
+      errorMessage = data;
     }
+
+    return { error: true, errorMessage };
+  }
+
+  return data;
+};
+
+export const getRequest = async (url) => {
+  const response = await fetch(url);  
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    let errorMessage = "Get request failed";
+
+    if (data?.message) {
+      errorMessage = data.message;
+    } 
 
     return { error: true, errorMessage };
   }
